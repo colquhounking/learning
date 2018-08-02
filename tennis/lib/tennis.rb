@@ -12,11 +12,17 @@ class Tennis
 	end
 
 	def score
-		if points_are_equal?
-			"#{SCORES[@points_server]} all"
-		else
-			"#{SCORES[@points_server]} #{SCORES[@points_reciever]}"
-		end
+		return 'deuce' if deuce?
+		return "#{SCORES[@points_server]} all" if points_are_equal?
+		"#{SCORES[@points_server]} #{SCORES[@points_reciever]}"
+	end
+
+	def deuce?
+		points_are_equal? && points_are_deuce_level?
+	end
+	
+	def points_are_deuce_level?
+		@points_server >= 3 && @points_reciever >= 3
 	end
 
 	def points_are_equal?
